@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
     <style>
+    /* весь твой CSS без изменений, кроме того что ниже — можно оставить как есть */
     :root {
         --void: #050505;
         --blood: #ff002a;
@@ -355,6 +356,7 @@
         justify-content: space-between;
         align-items: center;
         gap: 10px;
+        flex-wrap: wrap;
     }
 
     .play-btn {
@@ -628,8 +630,8 @@
         }
 
         .track-info {
-            flex-direction: row;
-            align-items: center;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
         .play-btn {
@@ -740,7 +742,7 @@
         <h2 class="section-title">ПОРТФОЛИО</h2>
         <div class="portfolio-grid">
             <!-- WHAT'S UP -->
-            <div class="track-card" data-audio="audio/2134714644.mp3">
+            <div class="track-card">
                 <div class="track-cover">
                     <svg viewBox="0 0 100 100" class="icon-graphic">
                         <line x1="0" y1="0" x2="100" y2="100" stroke="#333"></line>
@@ -750,15 +752,19 @@
                     </svg>
                 </div>
                 <div class="track-info">
-                    <div>
+                    <div style="flex: 1 1 100%;">
                         <div style="color: var(--bone); font-weight: bold;">WHAT'S UP</div>
                         <div class="track-wave"></div>
                     </div>
-                    <button class="play-btn">▶</button>
+                    <!-- видимый плеер -->
+                    <audio controls style="width:100%; margin-top:8px;">
+                        <source src="audio/2134714644.mp3" type="audio/mpeg">
+                        Ваш браузер не поддерживает аудио.
+                    </audio>
                 </div>
             </div>
             <!-- КАЛЬКУЛЯТОР -->
-            <div class="track-card" data-audio="audio/2092932615.mp3">
+            <div class="track-card">
                 <div class="track-cover">
                     <svg viewBox="0 0 100 100" class="icon-graphic">
                         <circle cx="50" cy="50" r="30" stroke="#ff002a" stroke-dasharray="4 2"></circle>
@@ -766,15 +772,18 @@
                     </svg>
                 </div>
                 <div class="track-info">
-                    <div>
+                    <div style="flex: 1 1 100%;">
                         <div style="color: var(--bone); font-weight: bold;">КАЛЬКУЛЯТОР</div>
                         <div class="track-wave"></div>
                     </div>
-                    <button class="play-btn">▶</button>
+                    <audio controls style="width:100%; margin-top:8px;">
+                        <source src="audio/2092932615.mp3" type="audio/mpeg">
+                        Ваш браузер не поддерживает аудио.
+                    </audio>
                 </div>
             </div>
             <!-- ОКЛАД -->
-            <div class="track-card" data-audio="audio/2263689122.mp3">
+            <div class="track-card">
                 <div class="track-cover">
                     <svg viewBox="0 0 100 100" class="icon-graphic">
                         <path d="M10 90 L50 10 L90 90 Z" stroke="#ff002a" fill="none"></path>
@@ -782,62 +791,22 @@
                     </svg>
                 </div>
                 <div class="track-info">
-                    <div>
+                    <div style="flex: 1 1 100%;">
                         <div style="color: var(--bone); font-weight: bold;">ОКЛАД</div>
                         <div class="track-wave"></div>
                     </div>
-                    <button class="play-btn">▶</button>
+                    <audio controls style="width:100%; margin-top:8px;">
+                        <source src="audio/2263689122.mp3" type="audio/mpeg">
+                        Ваш браузер не поддерживает аудио.
+                    </audio>
                 </div>
             </div>
         </div>
     </section>
 
-    <section>
-        <h2 class="section-title">РАБОТАЛ С</h2>
-        <div class="collab-list">
-            <a href="#" class="artist-tag">mirfixx</a>
-            <a href="#" class="artist-tag">moler</a>
-            <a href="#" class="artist-tag">tagedmi</a>
-            <a href="#" class="artist-tag">antifuckboy</a>
-            <a href="#" class="artist-tag">tec9beat</a>
-            <a href="#" class="artist-tag">tenshibeats</a>
-        </div>
-    </section>
+    <!-- остальной контент как у тебя: РАБОТАЛ С, ОТЗЫВЫ, футер -->
 
-    <section>
-        <h2 class="section-title">ОТЗЫВЫ</h2>
-        <div class="review-scroller">
-            <div class="review-card">
-                <p class="review-text">"Сделал грязь, звук плотный, бас разрывает. Лучший в своем жанре."</p>
-                <p class="review-author">@mirfixx</p>
-            </div>
-            <div class="review-card">
-                <p class="review-text">"Сведение на высоте, вокал сидит идеально. Быстро и качественно."</p>
-                <p class="review-author">@moler</p>
-            </div>
-            <div class="review-card">
-                <p class="review-text">"Бит просто уничтожает, структура топ. Будем работать еще."</p>
-                <p class="review-author">@tagedmi</p>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-grid">
-            <div>
-                <h3 style="color: var(--blood); margin-bottom: 20px;">@naisypugg</h3>
-                <p style="opacity: 0.6; font-size: 0.8rem;">
-                    EVILPLUG / DARK PLUGG SOUND DESIGN.<br>
-                    ALL RIGHTS RESERVED 2023.
-                </p>
-            </div>
-            <div class="chatbot">
-                <p><strong>ЧАТ-БОТ:</strong> Закажи бит в стиле evilplug — ответ в 5 мин.</p>
-                <input type="text" class="chat-input" placeholder="Опиши свой заказ...">
-                <button class="order-btn">ОТПРАВИТЬ ЗАПРОС</button>
-            </div>
-        </div>
-    </footer>
+    <!-- ... -->
 </div>
 
 <script>
@@ -904,53 +873,6 @@
         document.getElementById('totalPrice').innerText = price.toLocaleString() + ' ₽';
     }
     calculate();
-
-    // плеер для треков
-    let currentAudio = null;
-    let currentButton = null;
-
-    function stopCurrent() {
-        if (currentAudio) {
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-        }
-        if (currentButton) {
-            currentButton.textContent = '▶';
-        }
-    }
-
-    document.querySelectorAll('.track-card').forEach(card => {
-        const btn = card.querySelector('.play-btn');
-        const audioSrc = card.getAttribute('data-audio');
-
-        btn.addEventListener('click', () => {
-            if (currentButton === btn) {
-                stopCurrent();
-                currentAudio = null;
-                currentButton = null;
-                return;
-            }
-
-            stopCurrent();
-
-            const audio = new Audio(audioSrc);
-            currentAudio = audio;
-            currentButton = btn;
-
-            btn.textContent = '⏸';
-
-            audio.play().catch(err => {
-                console.error(err);
-                btn.textContent = '▶';
-            });
-
-            audio.addEventListener('ended', () => {
-                btn.textContent = '▶';
-                currentAudio = null;
-                currentButton = null;
-            });
-        });
-    });
 </script>
 
 </body>
