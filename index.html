@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
     <style>
-    /* весь твой CSS без изменений, кроме того что ниже — можно оставить как есть */
     :root {
         --void: #050505;
         --blood: #ff002a;
@@ -31,6 +30,7 @@
         font-family: 'JetBrains Mono', monospace;
         overflow-x: hidden;
         line-height: 1.4;
+        padding-bottom: 80px; /* чтобы контент не уходил под плеер */
     }
 
     .crt-overlay {
@@ -324,6 +324,7 @@
         position: relative;
         background: #000;
         transition: transform 0.2s;
+        cursor: pointer;
     }
 
     .track-card:hover {
@@ -342,13 +343,6 @@
         overflow: hidden;
     }
 
-    .cover-art {
-        width: 100%;
-        height: 100%;
-        background-size: cover;
-        mix-blend-mode: luminosity;
-    }
-
     .track-info {
         padding: 15px;
         border-top: 1px solid var(--ash);
@@ -356,32 +350,41 @@
         justify-content: space-between;
         align-items: center;
         gap: 10px;
-        flex-wrap: wrap;
     }
 
-    .play-btn {
-        width: 40px;
-        height: 40px;
-        border: 1px solid var(--blood);
-        background: none;
-        color: var(--blood);
+    .track-main {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.2rem;
+        flex-direction: column;
+        gap: 6px;
     }
 
-    .play-btn:hover {
-        background: var(--blood);
-        color: var(--void);
+    .track-title {
+        color: var(--bone);
+        font-weight: bold;
+    }
+
+    .track-sub {
+        font-size: 0.8rem;
+        opacity: 0.7;
     }
 
     .track-wave {
-        height: 30px;
+        height: 4px;
         width: 100%;
         background: repeating-linear-gradient(90deg, var(--blood) 0, var(--blood) 2px, transparent 2px, transparent 4px);
-        opacity: 0.3;
-        margin-top: 10px;
+        opacity: 0.5;
+    }
+
+    .track-play-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 999px;
+        border: 1px solid var(--blood);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        color: var(--blood);
     }
 
     .collab-list {
@@ -504,12 +507,12 @@
 
     .sticky-socials {
         position: fixed;
-        bottom: 30px;
+        bottom: 100px;
         right: 30px;
         display: flex;
         flex-direction: column;
         gap: 10px;
-        z-index: 100;
+        z-index: 1000;
     }
 
     .social-btn {
@@ -537,6 +540,109 @@
         stroke: var(--blood);
         stroke-width: 1;
         fill: none;
+    }
+
+    /* ==== FIXED EVILPLUG PLAYER ==== */
+    .evil-player {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 70px;
+        background: rgba(5, 5, 5, 0.96);
+        border-top: 1px solid var(--blood);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+        gap: 20px;
+        z-index: 9999;
+        font-family: 'JetBrains Mono', monospace;
+    }
+
+    .evil-player-left {
+        min-width: 0;
+    }
+
+    .evil-player-title {
+        font-family: 'Oswald', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--blood);
+        font-size: 0.9rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .evil-player-sub {
+        font-size: 0.7rem;
+        opacity: 0.7;
+    }
+
+    .evil-player-center {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .evil-player-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 999px;
+        border: 1px solid var(--blood);
+        background: #050505;
+        color: var(--blood);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .evil-player-btn.main {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+
+    .evil-player-btn:hover {
+        background: var(--blood);
+        color: var(--void);
+        box-shadow: 0 0 10px var(--blood);
+    }
+
+    .evil-player-right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .evil-player-time {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.7rem;
+        opacity: 0.7;
+    }
+
+    .evil-player-bar {
+        position: relative;
+        width: 100%;
+        height: 4px;
+        background: var(--ash);
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .evil-player-bar-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, var(--blood), #ff4b6a);
     }
 
     @media (max-width: 768px) {
@@ -629,37 +735,13 @@
             max-width: 100%;
         }
 
-        .track-info {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .play-btn {
-            width: 36px;
-            height: 36px;
-            font-size: 1rem;
-        }
-
-        .collab-list {
-            gap: 10px;
-        }
-
-        .artist-tag {
-            padding: 8px 12px;
-            font-size: 0.8rem;
-        }
-
-        .review-card {
-            min-width: 260px;
-        }
-
         .footer-grid {
             grid-template-columns: 1fr;
             gap: 24px;
         }
 
         .sticky-socials {
-            bottom: 16px;
+            bottom: 100px;
             right: 16px;
         }
 
@@ -667,6 +749,26 @@
             width: 40px;
             height: 40px;
             font-size: 0.8rem;
+        }
+
+        .evil-player {
+            height: 80px;
+            padding: 8px 10px;
+            gap: 10px;
+        }
+        .evil-player-title {
+            font-size: 0.8rem;
+        }
+        .evil-player-sub {
+            display: none;
+        }
+        .evil-player-btn {
+            width: 28px;
+            height: 28px;
+        }
+        .evil-player-btn.main {
+            width: 34px;
+            height: 34px;
         }
     }
     </style>
@@ -742,7 +844,10 @@
         <h2 class="section-title">ПОРТФОЛИО</h2>
         <div class="portfolio-grid">
             <!-- WHAT'S UP -->
-            <div class="track-card">
+            <div class="track-card"
+                 data-audio="audio/2134714644.mp3"
+                 data-title="WHAT'S UP"
+                 data-artist="@naisypugg">
                 <div class="track-cover">
                     <svg viewBox="0 0 100 100" class="icon-graphic">
                         <line x1="0" y1="0" x2="100" y2="100" stroke="#333"></line>
@@ -752,19 +857,19 @@
                     </svg>
                 </div>
                 <div class="track-info">
-                    <div style="flex: 1 1 100%;">
-                        <div style="color: var(--bone); font-weight: bold;">WHAT'S UP</div>
+                    <div class="track-main">
+                        <div class="track-title">WHAT'S UP</div>
+                        <div class="track-sub">@naisypugg</div>
                         <div class="track-wave"></div>
                     </div>
-                    <!-- видимый плеер -->
-                    <audio controls style="width:100%; margin-top:8px;">
-                        <source src="audio/2134714644.mp3" type="audio/mpeg">
-                        Ваш браузер не поддерживает аудио.
-                    </audio>
+                    <div class="track-play-icon">▶</div>
                 </div>
             </div>
             <!-- КАЛЬКУЛЯТОР -->
-            <div class="track-card">
+            <div class="track-card"
+                 data-audio="audio/2092932615.mp3"
+                 data-title="КАЛЬКУЛЯТОР"
+                 data-artist="@naisypugg">
                 <div class="track-cover">
                     <svg viewBox="0 0 100 100" class="icon-graphic">
                         <circle cx="50" cy="50" r="30" stroke="#ff002a" stroke-dasharray="4 2"></circle>
@@ -772,18 +877,19 @@
                     </svg>
                 </div>
                 <div class="track-info">
-                    <div style="flex: 1 1 100%;">
-                        <div style="color: var(--bone); font-weight: bold;">КАЛЬКУЛЯТОР</div>
+                    <div class="track-main">
+                        <div class="track-title">КАЛЬКУЛЯТОР</div>
+                        <div class="track-sub">@naisypugg</div>
                         <div class="track-wave"></div>
                     </div>
-                    <audio controls style="width:100%; margin-top:8px;">
-                        <source src="audio/2092932615.mp3" type="audio/mpeg">
-                        Ваш браузер не поддерживает аудио.
-                    </audio>
+                    <div class="track-play-icon">▶</div>
                 </div>
             </div>
             <!-- ОКЛАД -->
-            <div class="track-card">
+            <div class="track-card"
+                 data-audio="audio/2263689122.mp3"
+                 data-title="ОКЛАД"
+                 data-artist="@naisypugg">
                 <div class="track-cover">
                     <svg viewBox="0 0 100 100" class="icon-graphic">
                         <path d="M10 90 L50 10 L90 90 Z" stroke="#ff002a" fill="none"></path>
@@ -791,22 +897,85 @@
                     </svg>
                 </div>
                 <div class="track-info">
-                    <div style="flex: 1 1 100%;">
-                        <div style="color: var(--bone); font-weight: bold;">ОКЛАД</div>
+                    <div class="track-main">
+                        <div class="track-title">ОКЛАД</div>
+                        <div class="track-sub">@naisypugg</div>
                         <div class="track-wave"></div>
                     </div>
-                    <audio controls style="width:100%; margin-top:8px;">
-                        <source src="audio/2263689122.mp3" type="audio/mpeg">
-                        Ваш браузер не поддерживает аудио.
-                    </audio>
+                    <div class="track-play-icon">▶</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- остальной контент как у тебя: РАБОТАЛ С, ОТЗЫВЫ, футер -->
+    <section>
+        <h2 class="section-title">РАБОТАЛ С</h2>
+        <div class="collab-list">
+            <a href="#" class="artist-tag">mirfixx</a>
+            <a href="#" class="artist-tag">moler</a>
+            <a href="#" class="artist-tag">tagedmi</a>
+            <a href="#" class="artist-tag">antifuckboy</a>
+            <a href="#" class="artist-tag">tec9beat</a>
+            <a href="#" class="artist-tag">tenshibeats</a>
+        </div>
+    </section>
 
-    <!-- ... -->
+    <section>
+        <h2 class="section-title">ОТЗЫВЫ</h2>
+        <div class="review-scroller">
+            <div class="review-card">
+                <p class="review-text">"Сделал грязь, звук плотный, бас разрывает. Лучший в своем жанре."</p>
+                <p class="review-author">@mirfixx</p>
+            </div>
+            <div class="review-card">
+                <p class="review-text">"Сведение на высоте, вокал сидит идеально. Быстро и качественно."</p>
+                <p class="review-author">@moler</p>
+            </div>
+            <div class="review-card">
+                <p class="review-text">"Бит просто уничтожает, структура топ. Будем работать еще."</p>
+                <p class="review-author">@tagedmi</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h3 style="color: var(--blood); margin-bottom: 20px;">@naisypugg</h3>
+                <p style="opacity: 0.6; font-size: 0.8rem;">
+                    EVILPLUG / DARK PLUGG SOUND DESIGN.<br>
+                    ALL RIGHTS RESERVED 2023.
+                </p>
+            </div>
+            <div class="chatbot">
+                <p><strong>ЧАТ-БОТ:</strong> Закажи бит в стиле evilplug — ответ в 5 мин.</p>
+                <input type="text" class="chat-input" placeholder="Опиши свой заказ...">
+                <button class="order-btn">ОТПРАВИТЬ ЗАПРОС</button>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<!-- НИЖНИЙ ПЛЕЕР -->
+<div class="evil-player" id="evilPlayer">
+  <div class="evil-player-left">
+    <div class="evil-player-title" id="playerTitle">Выбери трек</div>
+    <div class="evil-player-sub" id="playerSub">Клик по карточке в портфолио</div>
+  </div>
+  <div class="evil-player-center">
+    <button class="evil-player-btn" id="playerPrev">⏮</button>
+    <button class="evil-player-btn main" id="playerPlay">▶</button>
+    <button class="evil-player-btn" id="playerNext">⏭</button>
+  </div>
+  <div class="evil-player-right">
+    <div class="evil-player-time">
+      <span id="playerCurrent">0:00</span>
+      <span id="playerDuration">0:00</span>
+    </div>
+    <div class="evil-player-bar" id="playerBar">
+      <div class="evil-player-bar-fill" id="playerBarFill"></div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -873,6 +1042,128 @@
         document.getElementById('totalPrice').innerText = price.toLocaleString() + ' ₽';
     }
     calculate();
+
+    // ===== EVILPLUG BOTTOM PLAYER =====
+    const trackCards = Array.from(document.querySelectorAll('.track-card'));
+    const playerTitle = document.getElementById('playerTitle');
+    const playerSub = document.getElementById('playerSub');
+    const playerPlay = document.getElementById('playerPlay');
+    const playerPrev = document.getElementById('playerPrev');
+    const playerNext = document.getElementById('playerNext');
+    const playerCurrent = document.getElementById('playerCurrent');
+    const playerDuration = document.getElementById('playerDuration');
+    const playerBar = document.getElementById('playerBar');
+    const playerBarFill = document.getElementById('playerBarFill');
+
+    let playerAudio = new Audio();
+    let currentIndex = -1;
+    let isPlaying = false;
+
+    function formatTime(sec) {
+        if (!isFinite(sec)) return '0:00';
+        const m = Math.floor(sec / 60);
+        const s = Math.floor(sec % 60).toString().padStart(2, '0');
+        return `${m}:${s}`;
+    }
+
+    function loadTrack(index) {
+        const card = trackCards[index];
+        if (!card) return;
+
+        const src = card.getAttribute('data-audio');
+        const title = card.getAttribute('data-title') || 'Трек';
+        const artist = card.getAttribute('data-artist') || '@naisypugg';
+
+        currentIndex = index;
+        playerAudio.src = src;
+        playerTitle.textContent = title;
+        playerSub.textContent = artist;
+        playerBarFill.style.width = '0%';
+        playerCurrent.textContent = '0:00';
+        playerDuration.textContent = '0:00';
+    }
+
+    function playCurrent() {
+        if (!playerAudio.src) return;
+        playerAudio.play().then(() => {
+            isPlaying = true;
+            playerPlay.textContent = '⏸';
+        }).catch(console.error);
+    }
+
+    function pauseCurrent() {
+        playerAudio.pause();
+        isPlaying = false;
+        playerPlay.textContent = '▶';
+    }
+
+    // клик по карточке — выбрать трек и играть
+    trackCards.forEach((card, index) => {
+        card.addEventListener('click', () => {
+            if (currentIndex === index && isPlaying) {
+                pauseCurrent();
+                return;
+            }
+            loadTrack(index);
+            playCurrent();
+        });
+    });
+
+    // play/pause снизу
+    playerPlay.addEventListener('click', () => {
+        if (!playerAudio.src) {
+            if (trackCards.length === 0) return;
+            loadTrack(0);
+            playCurrent();
+            return;
+        }
+        if (isPlaying) {
+            pauseCurrent();
+        } else {
+            playCurrent();
+        }
+    });
+
+    // prev/next
+    playerPrev.addEventListener('click', () => {
+        if (trackCards.length === 0) return;
+        const nextIndex = currentIndex <= 0 ? trackCards.length - 1 : currentIndex - 1;
+        loadTrack(nextIndex);
+        playCurrent();
+    });
+
+    playerNext.addEventListener('click', () => {
+        if (trackCards.length === 0) return;
+        const nextIndex = currentIndex >= trackCards.length - 1 ? 0 : currentIndex + 1;
+        loadTrack(nextIndex);
+        playCurrent();
+    });
+
+    // обновление времени и прогресса
+    playerAudio.addEventListener('timeupdate', () => {
+        playerCurrent.textContent = formatTime(playerAudio.currentTime);
+        playerDuration.textContent = formatTime(playerAudio.duration);
+        const percent = playerAudio.duration ? (playerAudio.currentTime / playerAudio.duration) * 100 : 0;
+        playerBarFill.style.width = `${percent}%`;
+    });
+
+    // по окончании — следующий трек
+    playerAudio.addEventListener('ended', () => {
+        if (trackCards.length === 0) return;
+        const nextIndex = currentIndex >= trackCards.length - 1 ? 0 : currentIndex + 1;
+        loadTrack(nextIndex);
+        playCurrent();
+    });
+
+    // клик по полоске — перемотка
+    playerBar.addEventListener('click', (e) => {
+        const rect = playerBar.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const percent = x / rect.width;
+        if (playerAudio.duration) {
+            playerAudio.currentTime = playerAudio.duration * percent;
+        }
+    });
 </script>
 
 </body>
