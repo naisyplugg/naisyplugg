@@ -537,10 +537,6 @@
         fill: none;
     }
 
-    /* ==============================
-       АДАПТИВ ПОД МОБИЛКУ
-       ============================== */
-
     @media (max-width: 768px) {
         body {
             font-size: 14px;
@@ -671,8 +667,7 @@
             font-size: 0.8rem;
         }
     }
-</style>
-
+    </style>
 </head>
 <body>
 
@@ -696,7 +691,6 @@
 </header>
 
 <div class="container">
-    
     <section class="stats-grid">
         <div class="stat-item">
             <span class="stat-num">20</span>
@@ -724,7 +718,6 @@
                     <li class="service-item"><span>Продвижение</span> <span>&gt;</span></li>
                 </ul>
             </div>
-            
             <div class="calculator">
                 <div class="calc-row">
                     <div class="calc-label"><span>Сложность проекта</span> <span id="val1">50%</span></div>
@@ -746,8 +739,8 @@
     <section>
         <h2 class="section-title">ПОРТФОЛИО</h2>
         <div class="portfolio-grid">
-            
-            <div class="track-card">
+            <!-- WHAT'S UP -->
+            <div class="track-card" data-audio="audio/2134714644.mp3">
                 <div class="track-cover">
                     <svg viewBox="0 0 100 100" class="icon-graphic">
                         <line x1="0" y1="0" x2="100" y2="100" stroke="#333"></line>
@@ -764,12 +757,12 @@
                     <button class="play-btn">▶</button>
                 </div>
             </div>
-            
-            <div class="track-card">
+            <!-- КАЛЬКУЛЯТОР -->
+            <div class="track-card" data-audio="audio/2092932615.mp3">
                 <div class="track-cover">
                     <svg viewBox="0 0 100 100" class="icon-graphic">
-                         <circle cx="50" cy="50" r="30" stroke="#ff002a" stroke-dasharray="4 2"></circle>
-                         <rect x="45" y="30" width="10" height="40" fill="#333"></rect>
+                        <circle cx="50" cy="50" r="30" stroke="#ff002a" stroke-dasharray="4 2"></circle>
+                        <rect x="45" y="30" width="10" height="40" fill="#333"></rect>
                     </svg>
                 </div>
                 <div class="track-info">
@@ -780,10 +773,10 @@
                     <button class="play-btn">▶</button>
                 </div>
             </div>
-
-            <div class="track-card">
+            <!-- ОКЛАД -->
+            <div class="track-card" data-audio="audio/2263689122.mp3">
                 <div class="track-cover">
-                     <svg viewBox="0 0 100 100" class="icon-graphic">
+                    <svg viewBox="0 0 100 100" class="icon-graphic">
                         <path d="M10 90 L50 10 L90 90 Z" stroke="#ff002a" fill="none"></path>
                         <line x1="10" y1="50" x2="90" y2="50" stroke="#333"></line>
                     </svg>
@@ -845,10 +838,10 @@
             </div>
         </div>
     </footer>
-
 </div>
 
 <script>
+    // фон‑волна
     const canvas = document.getElementById('waveformCanvas');
     const ctx = canvas.getContext('2d');
     let width, height;
@@ -857,12 +850,10 @@
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
     }
-    
     window.addEventListener('resize', resize);
     resize();
 
     let offset = 0;
-    
     function draw() {
         ctx.fillStyle = '#050505';
         ctx.fillRect(0, 0, width, height);
@@ -870,19 +861,18 @@
         ctx.beginPath();
         ctx.lineWidth = 1;
         ctx.strokeStyle = '#ff002a';
-        
-        for (let x = 0; x < width; x+=5) {
-            const y = height/2 + 
-                      Math.sin((x + offset) * 0.01) * 50 + 
-                      (Math.random() - 0.5) * 40; 
-            
+
+        for (let x = 0; x < width; x += 5) {
+            const y = height / 2 +
+                      Math.sin((x + offset) * 0.01) * 50 +
+                      (Math.random() - 0.5) * 40;
             if (x === 0) ctx.moveTo(x, y);
             else ctx.lineTo(x, y);
         }
-        
+
         ctx.stroke();
-        
-        if(Math.random() > 0.95) {
+
+        if (Math.random() > 0.95) {
             const rx = Math.random() * width;
             ctx.beginPath();
             ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
@@ -894,12 +884,12 @@
         offset += 2;
         requestAnimationFrame(draw);
     }
-    
     draw();
 
+    // калькулятор
     function calculate() {
         const s1 = parseInt(document.getElementById('slider1').value);
-        const s2 = parseInt(document.getElementById('slider2').value); 
+        const s2 = parseInt(document.getElementById('slider2').value);
         const s3 = parseInt(document.getElementById('slider3').value);
 
         document.getElementById('val1').innerText = s1 + '%';
@@ -913,12 +903,55 @@
 
         document.getElementById('totalPrice').innerText = price.toLocaleString() + ' ₽';
     }
-    
     calculate();
+
+    // плеер для треков
+    let currentAudio = null;
+    let currentButton = null;
+
+    function stopCurrent() {
+        if (currentAudio) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+        }
+        if (currentButton) {
+            currentButton.textContent = '▶';
+        }
+    }
+
+    document.querySelectorAll('.track-card').forEach(card => {
+        const btn = card.querySelector('.play-btn');
+        const audioSrc = card.getAttribute('data-audio');
+
+        btn.addEventListener('click', () => {
+            if (currentButton === btn) {
+                stopCurrent();
+                currentAudio = null;
+                currentButton = null;
+                return;
+            }
+
+            stopCurrent();
+
+            const audio = new Audio(audioSrc);
+            currentAudio = audio;
+            currentButton = btn;
+
+            btn.textContent = '⏸';
+
+            audio.play().catch(err => {
+                console.error(err);
+                btn.textContent = '▶';
+            });
+
+            audio.addEventListener('ended', () => {
+                btn.textContent = '▶';
+                currentAudio = null;
+                currentButton = null;
+            });
+        });
+    });
 </script>
 
 </body>
 </html>
-
-
-
