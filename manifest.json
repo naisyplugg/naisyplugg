@@ -1,0 +1,6 @@
+{
+"name":"Task Hunter",
+"short_name":"TaskHunter",
+"start_url":"./",
+"display":"standalone"
+}
