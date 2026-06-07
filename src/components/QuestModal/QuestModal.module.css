@@ -1,0 +1,277 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 50;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 60;
+  width: 90%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.content {
+  background: var(--gradient-dark);
+  border: 2px solid var(--color-secondary);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4),
+              0 0 30px rgba(107, 63, 160, 0.3);
+  position: relative;
+}
+
+.content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(107, 63, 160, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%);
+  pointer-events: none;
+  border-radius: 16px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(212, 165, 116, 0.2);
+}
+
+.header h2 {
+  font-size: 1.5rem;
+  color: var(--color-light);
+  margin: 0;
+}
+
+.closeBtn {
+  width: 32px;
+  height: 32px;
+  background: rgba(212, 165, 116, 0.2);
+  border: 1px solid rgba(212, 165, 116, 0.3);
+  border-radius: 8px;
+  color: var(--color-light);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-normal);
+}
+
+.closeBtn:hover:not(:disabled) {
+  background: rgba(212, 165, 116, 0.3);
+  transform: rotate(90deg);
+}
+
+.closeBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.input {
+  padding: 0.875rem 1rem;
+  background: rgba(45, 45, 68, 0.4);
+  border: 2px solid rgba(212, 165, 116, 0.2);
+  border-radius: 10px;
+  color: var(--color-light);
+  font-size: 1rem;
+  transition: all var(--transition-normal);
+  font-family: inherit;
+}
+
+.input:focus {
+  border-color: var(--color-secondary);
+  background: rgba(45, 45, 68, 0.6);
+  box-shadow: 0 0 12px rgba(212, 165, 116, 0.2);
+}
+
+.input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.input::placeholder {
+  color: rgba(212, 165, 116, 0.5);
+}
+
+.counter {
+  font-size: 0.75rem;
+  color: rgba(212, 165, 116, 0.6);
+  align-self: flex-end;
+}
+
+.difficultyGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.difficultyBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(45, 45, 68, 0.3);
+  border: 2px solid rgba(212, 165, 116, 0.2);
+  border-radius: 10px;
+  color: var(--color-light);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  font-size: 0.85rem;
+}
+
+.difficultyBtn:hover:not(:disabled) {
+  background: rgba(45, 45, 68, 0.5);
+  border-color: rgba(212, 165, 116, 0.4);
+}
+
+.difficultyBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.difficultyBtn.active {
+  background: linear-gradient(135deg, rgba(107, 63, 160, 0.4) 0%, rgba(212, 165, 116, 0.2) 100%);
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 16px rgba(212, 165, 116, 0.3);
+}
+
+.difficultyIcon {
+  font-size: 2rem;
+  display: block;
+}
+
+.difficultyLabel {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.difficultyExp {
+  font-size: 0.75rem;
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.cancelBtn,
+.submitBtn {
+  padding: 0.875rem 1.25rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cancelBtn {
+  background: rgba(212, 165, 116, 0.1);
+  border: 2px solid rgba(212, 165, 116, 0.3);
+  color: var(--color-secondary);
+}
+
+.cancelBtn:hover:not(:disabled) {
+  background: rgba(212, 165, 116, 0.2);
+  border-color: var(--color-secondary);
+}
+
+.cancelBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.submitBtn {
+  background: var(--gradient-secondary);
+  border: 2px solid var(--color-secondary);
+  color: var(--color-dark);
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(212, 165, 116, 0.3);
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(212, 165, 116, 0.4);
+}
+
+.submitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.infoText {
+  font-size: 0.85rem;
+  color: rgba(212, 165, 116, 0.7);
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+@media (max-width: 480px) {
+  .modal {
+    width: 95%;
+    max-height: 85vh;
+  }
+
+  .content {
+    padding: 1.25rem;
+  }
+
+  .header h2 {
+    font-size: 1.25rem;
+  }
+
+  .difficultyGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    grid-template-columns: 1fr;
+  }
+}
