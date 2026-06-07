@@ -1,0 +1,133 @@
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(
+    180deg,
+    #87CEEB 0%,
+    #E0F6FF 40%,
+    #FFF8DC 100%
+  );
+  z-index: 1;
+}
+
+.sun {
+  position: absolute;
+  top: 5%;
+  right: 10%;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, #FFD700 0%, #FFA500 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+  z-index: 2;
+  animation: float 6s ease-in-out infinite;
+}
+
+.clouds {
+  position: absolute;
+  top: 5%;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  z-index: 3;
+  animation: slowDrift 40s linear infinite;
+}
+
+.mountains1 {
+  position: absolute;
+  top: 15%;
+  left: 0;
+  width: 100%;
+  height: 250px;
+  z-index: 4;
+  animation: slowParallax 80s linear infinite;
+}
+
+.mountains2 {
+  position: absolute;
+  top: 25%;
+  left: 0;
+  width: 100%;
+  height: 280px;
+  z-index: 5;
+  animation: mediumParallax 60s linear infinite;
+}
+
+.forest {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 45%;
+  z-index: 10;
+  animation: fastParallax 40s linear infinite;
+}
+
+.decorative {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  animation: fastParallax 50s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes slowDrift {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-500px);
+  }
+}
+
+@keyframes slowParallax {
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+  100% {
+    transform: translateX(-300px) translateY(-30px);
+  }
+}
+
+@keyframes mediumParallax {
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+  100% {
+    transform: translateX(-400px) translateY(-50px);
+  }
+}
+
+@keyframes fastParallax {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-600px);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
